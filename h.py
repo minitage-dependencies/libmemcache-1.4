@@ -3,7 +3,8 @@ import sys
 def h(options, buildout):
     c = os.getcwd()
     os.chdir(options['compile-directory'])
-    os.system("autoreconf -ifv")
+    if not 'freebsd' in sys.platform.lower():
+        os.system("autoreconf -ifv")
     if sys.platform.startswith('cygwin'):
         r = open('config.h.in').readlines()
         r.append('\n\n#define _POSIX_C_SOURCE 200112L\n\n')
